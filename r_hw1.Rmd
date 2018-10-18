@@ -1,0 +1,73 @@
+---
+output: pdf_document
+---
+
+# Homework: 1
+### Name: Fisher Ankney
+### Course: STAT 5193
+
+## 1. 
+```{r}
+FRA <- 5.2
+FRA + 5
+```
+
+<br> 
+
+## 2.
+```{r}
+n <- c(1,2,3,4,5,6,7)
+fib <- c(1, 1, 2, 3, 5, 8, 13, 21)
+mean(fib)
+```
+
+<br> 
+
+## 3.
+```{r}
+library(MASS)
+help(package = "MASS")
+```
+
+
+<br> 
+
+## 4.
+```{r}
+data()
+help(UScrime)
+```
+
+The Effect of Punishment Regimes on Crime Rates
+
+Description
+
+Criminologists are interested in the effect of punishment regimes on crime rates. This has been studied using aggregate data on 47 states of the USA for 1960 given in this data frame. The variables seem to have been re-scaled to convenient numbers.
+
+<br> 
+
+## 5. 
+```{r}
+help(DDT)
+```
+
+DDT in Kale
+
+Description
+
+A numeric vector of 15 measurements by different laboratories of the pesticide DDT in kale, in ppm (parts per million) using the multiple pesticide residue measurement.
+
+
+```{r}
+DDT.CI <- c(
+            mean(DDT)-2*sd(DDT)/sqrt(length(DDT)),
+            mean(DDT)+2*sd(DDT)/sqrt(length(DDT))
+            )
+DDT.CI
+```
+
+\vspace{0.5 in}
+```{r}
+hist(DDT)
+```
+

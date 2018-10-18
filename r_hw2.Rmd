@@ -1,0 +1,116 @@
+---
+output: pdf_document
+---
+
+### Fisher Ankney
+### October 18th, 2018
+### Statistics 5193
+
+*Note: this document was created using R Markdown. Dr. Habiger has confirmed that this is an acceptable way to turn in each assignment. 
+
+R code input will be of the form:
+```{r, eval=F}
+"this is R code input"
+``` 
+
+R code output will be of the form 
+```{r, echo=F}
+"this is R code output"
+``` 
+
+
+#### Question 1a.
+
+```{r, message=F}
+library(readxl)
+student_data <- read_excel("~/Downloads/StudentData.xlsx")
+```
+
+```{r}
+text_sent <- student_data$TxtSent
+text_recieve <- student_data$TxtRec
+facebook_time <- student_data$Fbtime
+```
+
+\hfill
+
+### Question 1b. 
+
+```{r}
+text_sent[c(1,3)]
+text_recieve[c(1,3)]
+facebook_time[c(1,3)]
+```
+
+\hfill
+
+### Question 1c.
+```{r}
+storage.mode(text_sent)
+class(text_sent)
+```
+
+\pagebreak
+
+### Question 2a.
+```{r}
+id_num <- 1:35
+sm <- matrix(c(text_sent, text_recieve, facebook_time), nrow=35, ncol=3)
+colnames(sm) <- c("text_sent", "text_recieved", "facebook_time")
+rownames(sm) <- id_num
+
+sm[4,]
+```
+
+
+\hfill
+
+### Question 2b. 
+```{r}
+is.matrix(sm)
+dim(sm)
+```
+
+\hfill
+
+### Question 2c.
+```{r}
+male <- student_data$Gender == "M"
+female <- student_data$Gender == "F"
+
+median(student_data[male, ]$Fbtime)
+median(student_data[female, ]$Fbtime)
+```
+
+\hfill
+
+### Question 2d. 
+median and mean for difference between text sent and text recieved
+```{r}
+text_diff <- text_sent - text_recieve
+
+mean(text_diff)
+median(text_diff)
+```
+
+
+\hfill
+
+### Question 3.
+```{r}
+SM.Array <- as.array(sm)
+SM.Array[c(1,35),]
+```
+
+
+
+\hfill
+
+### Question 4.
+
+```{r}
+help(mean)
+help(letters)
+```
+
+The mean function only works for objects that are of the storage mode numeric / logical vectors, dates, date-times, and time intervals. Letters are characters, and not on this list of viable data types. 
