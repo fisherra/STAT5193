@@ -1,0 +1,94 @@
+---
+output: word_document
+---
+
+Fisher Ankney 
+
+October 25th, 2018 
+
+Statistics 5193 
+
+
+#### Question 1
+```{r, eval=F}
+fra <- data.frame()
+fra <- edit(fra)
+
+?row.names()
+
+row.names(fra) <- c("Jim", "Sam", "Sally")
+fra
+```
+
+```{r, echo=F}
+`Exam 1` <- c(80, 88, 40)
+`Exam 2` <- c(75, 90, 100)
+fra <- data.frame(`Exam 1`, `Exam 2`)
+
+row.names(fra) <- c("Jim", "Sam", "Sally")
+
+fra
+```
+
+\hfill
+
+
+#### Question 2
+```{r, eval = F}
+head(read.csv("~/Downloads/DJIA.csv", header=T), n=3)
+plot(read.table("clipboard", header = T))
+ls()
+```
+
+```{r, echo=F}
+head(read.csv("~/Downloads/DJIA.csv", header=T), n=3)
+ls()
+```
+
+
+#### Question 3
+
+"14,376 distinct words appeared once each in the canon,
+4343 distinct words twice each; The canon has 884,647 total words,
+counting repeats."
+
+\hfill
+
+```{r}
+plot(
+  read.csv(
+    url("https://web.stanford.edu/~hastie/CASI_files/DATA/shakespeare.txt"),
+    sep = " ", 
+    header=T)
+  )
+```
+
+
+\hfill
+
+
+#### Question 4
+
+```{r}
+library(readxl)
+StudentData <- read_excel("~/Downloads/StudentData.xlsx")
+StudentData[1:3,]
+```
+
+
+```{r}
+DNA <- read.csv("~/Downloads/OrganicNitrogenDNA.csv", row.names=1)
+colnames(DNA) <- c(1:9)
+DNA[1:2,]
+
+?write.csv
+write.csv(summary(DNA), file = "~/Documents/DNA_summary.txt")
+```
+
+
+
+
+
+
+
+

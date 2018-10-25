@@ -1,0 +1,115 @@
+---
+output: pdf_document
+---
+### Homework 3
+### Fisher Ankney
+### Stat 5193
+
+*Note: this document was created using R Markdown. Dr. Habiger has confirmed that this is an acceptable way to turn in each assignment. 
+
+R code input will be of the form:
+```{r, eval=F}
+"this is R code input"
+``` 
+
+R code output will be of the form 
+```{r, echo=F}
+"this is R code output"
+``` 
+
+
+#### Question 1a
+```{r}
+library(readxl)
+stud_dat <- read_excel("~/Downloads/StudentData.xlsx")
+
+text.sent <- stud_dat$TxtSent
+Fb.time <- stud_dat$Fbtime
+gender <- stud_dat$Gender
+
+mode(text.sent)
+mode(Fb.time)
+mode(gender)
+```
+
+\hfill
+
+#### Question 1b
+
+```{r}
+fra <- data.frame(text.sent, Fb.time, gender)
+fra[1:3,]
+```
+
+
+\pagebreak 
+
+#### Question 1c
+
+```{r}
+str(fra)
+
+fra$gender
+"no"
+```
+
+\hfill
+
+#### Question 1d
+```{r}
+summary(fra)
+
+# male prop
+sum(fra$gender == "M") / length(fra$gender)
+```
+
+
+\pagebreak 
+
+#### Question 1e
+```{r}
+boxplot(fra$Fb.time~fra$gender)
+```
+
+\hfill
+
+#### Question 2a
+```{r}
+set.seed(1)
+x <- rpois(25,1)
+x.f <- factor(x, order=T, levels = c(0,1,2,3,4,5))
+
+x.f
+```
+
+\hfill
+
+
+#### Question 2b
+```{r}
+help(table)
+"combination of factor"
+
+plot(table(x.f))
+```
+
+
+\hfill
+
+
+#### Question 3a
+
+```{r}
+fra <- list(first.name = "Fisher Ankney", matrix(c(1,0,0,1), nrow=2, ncol=2), summary(fra))
+fra
+```
+
+\hfill
+
+#### Question 3b
+
+```{r}
+fra <- fra[1:2]
+fra[[2]]
+```
+
