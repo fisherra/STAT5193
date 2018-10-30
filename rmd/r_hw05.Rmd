@@ -1,0 +1,74 @@
+---
+output: pdf_document
+---
+R Homework Number 5
+
+Fisher Ankney 
+
+October 30th, 2018 
+
+Statistics 5193 
+
+*Note: this document was created using R Markdown.
+
+R code input will be of the form:
+```{r, eval=F}
+"this is R code input"
+``` 
+
+R code output will be of the form 
+```{r, echo=F}
+"this is R code output"
+``` 
+
+
+
+### Question 1
+
+```{r}
+library(readxl)
+StudentData <- read_excel("~/Downloads/StudentData.xlsx")
+```
+
+```{r, eval=F}
+demo("colors")
+help(boxplot)
+```
+
+```{r}
+boxplot(StudentData$Fbtime ~ StudentData$Class,
+        names = c("U", "G"),
+        col = c("pink", 'blue'),
+        ylab = "time",
+        xlab = 'class',
+        main = 'Facebook Time vs. Class')
+```
+
+\pagebreak
+
+### Question 2
+```{r, }
+StudentDataTrim <- StudentData[-23,]
+StudentDataOut <- StudentData[23,]
+
+gender <- as.factor(StudentDataTrim$Gender)
+
+
+plot(StudentDataTrim$Introvert ~ StudentDataTrim$Fbtime,
+     main = 'FB vs. Introversion vs. Gender',
+     ylab = 'Introversion',
+     xlab = 'FB time',
+     pch = StudentDataTrim$Gender,
+     col = c("pink", "blue")[gender],
+     )
+
+points(StudentDataOut$Introvert ~ StudentDataOut$Fbtime,
+       pch = 'O')
+
+with_outlier <- lm(StudentData$Introvert ~ StudentData$Fbtime)
+without_outlier <- lm(StudentDataTrim$Introvert ~ StudentDataTrim$Fbtime)
+
+abline(with_outlier, lty = 2, col = "slateblue")
+abline(without_outlier, col = "firebrick")
+```
+
