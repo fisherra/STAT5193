@@ -1,0 +1,134 @@
+---
+output: word_document
+---
+R Homework Number 6
+
+Fisher Ankney 
+
+November 1st, 2018 
+
+Statistics 5193 
+
+*Note: this document was created using R Markdown.
+
+
+### Question 1
+
+```{r}
+library(readxl)
+StudentData <- read_excel("~/Downloads/StudentData.xlsx")
+```
+
+```{r}
+StudentDataNoOut <- StudentData[-28,]
+StudentDataOut <- StudentData[28,]
+```
+
+```{r, warning=F}
+plot(StudentDataNoOut$TxtRec 
+    - StudentDataNoOut$TxtSent
+    ~ StudentDataNoOut$Introvert,
+    ylab = "Texts Received – Texts Sent",
+    xlab = "Introversion Level",
+    ylim = c(-20, 120))
+
+title(main = "Texting vs. Introversion",
+      cex.main = 2, 
+      font.main = 4,
+      col.main = 'red')
+
+title(sub = "Scale 1- 10",
+      cex.sub = .8)
+
+lines(abline(h = 0,
+             col = 'blue',
+             lty = 2))
+
+points(StudentDataOut$TxtRec
+       - StudentDataOut$TxtSent
+       ~ StudentDataOut$Introvert,
+       pch = "X", col = 'green')
+
+text(StudentDataOut$TxtRec
+     - StudentDataOut$TxtSent
+     ~ StudentDataOut$Introvert,
+     label = 'Outlier',
+     pos=4)
+```
+
+\pagebreak
+
+## Question 2
+
+```{r}
+plot(StudentDataNoOut$TxtRec 
+    - StudentDataNoOut$TxtSent
+    ~ StudentDataNoOut$Introvert,
+    ylab = "Texts Received – Texts Sent",
+    xlab = "Introversion Level",
+    ylim = c(-25, 20))
+
+title(main = "Outlier Analysis",
+      cex.main = 2, 
+      font.main = 4,
+      col.main = 'red')
+
+title(sub = "Scale 1- 10",
+      cex.sub = .8)
+
+no_outlier_reg <- lm(StudentDataNoOut$TxtRec
+                   - StudentDataNoOut$TxtSent
+                   ~ StudentDataNoOut$Introvert)
+
+outlier_reg <- lm(StudentData$TxtRec
+                   - StudentData$TxtSent
+                   ~ StudentData$Introvert) 
+
+lines(abline(outlier_reg,
+             col = 'red',
+             lwd=3))
+
+lines(abline(no_outlier_reg,
+             col = 'black',
+             lwd=3,
+             lty=2))
+
+lines(abline(h = 0,
+             col = 'blue',
+             lty = 2))
+
+legend("bottomleft", 
+       inset = 0.05,
+       title = 'Fits',
+       c("With Outlier","Without Outlier"),	
+       lty=c(1,2),
+       lwd=c(3,3), 
+       col=c("red", "black"))	
+```
+
+
+## Question 3
+
+```{r}
+plot(StudentData$TxtRec 
+    - StudentData$TxtSent
+    ~ StudentData$Introvert,
+    pch = c(1,2)[as.numeric(as.factor(StudentData$Snapchat))],
+    col = c('black','red')[as.numeric(as.factor(StudentData$Snapchat))],
+    ylab = "Texts Received – Texts Sent",
+    xlab = "Introversion Level",
+    )
+
+title(main = "Texting vs. Introversion vs. Snapchat")
+
+legend("topleft",
+       inset = 0.05,
+       title='Snapchat',
+       c("Y","N"),	
+       pch = c(2,1),
+       col = c('red', 'black'))
+```
+
+
+
+

@@ -1,0 +1,107 @@
+---
+output: pdf_document
+---
+
+R Homework Number 7
+
+Fisher Ankney 
+
+November 6th, 2018 
+
+Statistics 5193 
+
+*Note: this document was created using R Markdown.
+
+\hfill
+
+
+### Question 1. 
+
+```{r}
+library(readxl)
+StudentData <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
+fra <- data.frame(StudentData)
+row.names(fra) <- seq(1:35)
+
+```
+
+
+\hfill
+
+
+### Question 2. 
+```{r}
+fra$TxtSent[1] <- NA
+fra$TxtRec[1] <- NA
+
+fra[1:3,]
+```
+
+\pagebreak
+
+
+### Question 3. 
+
+```{r}
+d.text <- fra$TxtSent - fra$TxtRec
+fra <- data.frame(fra[1:5], d.text, fra[6:9])
+
+fra[1:3,]
+```
+
+
+\hfill
+
+### Question 4. 
+
+```{r, echo = T, results='hide'}
+d.text.cat <- factor(sign(d.text), ordered = TRUE,
+                    levels = c(-1, 0, 1), 
+                    labels = c("Neg", "0", "Pos"))
+
+fra$d.text.cat <- d.text.cat
+
+addNA(fra$d.text.cat)
+```
+
+
+```{r}
+fra
+```
+
+\hfill
+
+### Question 5. 
+
+```{r}
+Ordered <- fra[order(fra$Gender,fra$d.text),]
+Ordered
+```
+
+\pagebreak
+
+### Question 6. 
+
+```{r}
+U.OSU <- rep('Y', 35)
+U.OSU[23:24] <- 'N'
+U.OSU[26:29] <- 'N'
+U.OSU[31:35] <- 'N'
+U.OSU <- data.frame(U.OSU)
+
+index <- as.numeric(row.names(Ordered)) # used row.names to index
+
+Ordered <- cbind(Ordered, U.OSU[index,])
+Ordered[1:5,]
+```
+
+
+\hfill
+
+### Question 7.
+
+```{r}
+set.seed(1)
+mean(fra$HSClass[sample(1:nrow(fra), 35, replace = T)])
+```
+
