@@ -1,0 +1,165 @@
+---
+output: word_document
+---
+
+R Homework Number 8
+
+Fisher Ankney 
+
+November 8th, 2018 
+
+Statistics 5193 
+
+*Note: this document was created using R Markdown.
+
+\hfill
+
+
+### Question 1a. 
+
+```{r, message=F}
+help(source)
+setwd("~/Documents/data_science/r_stat_5193/scripts")
+source("Day8Script.R")
+```
+
+
+```{r}
+help(source)
+roster
+ls()
+```
+
+\hfill
+
+
+### Question 1b. 
+
+```{r}
+score
+roster$score
+
+"roster <- roster[order(Lastname,Firstname),]"
+```
+
+\hfill
+
+### Question 1c. 
+
+```{r}
+y <- quantile(score, c(.75,.25))
+
+roster$`Easy Grade`[roster$score > y[1]] <- "A"		
+roster$`Easy Grade`[roster$score < y[1] & roster$score >= y[2]] <- "B"	
+roster$`Easy Grade`[roster$score < y[2]] <- "C"
+	
+roster
+```
+
+
+
+
+
+### Question 1d.
+
+```{r}
+y <- quantile(Math, c(.75,.25))
+
+roster$MathGrade[roster$Math > y[1]] <- "A"		
+roster$MathGrade[roster$Math < y[1] & roster$Math >= y[2]] <- "B"	
+roster$MathGrade[roster$Math < y[2]] <- "C"
+	
+roster
+```
+
+
+### Question 1e.
+
+```{r}
+roster_sort <- roster[order(-roster$Math),]
+roster_sort
+```
+
+
+### Question 1f.
+
+```{r}
+full_name <- paste(roster_sort$Firstname, roster_sort$Lastname)
+row.names(roster_sort) <- full_name
+
+roster_sort_drop <- roster_sort[,c(-1,-2)]
+roster_sort_drop
+```
+
+
+
+
+
+### Question 2. 
+
+```{r}
+t_data <- rt(1000,10)
+
+hist(t_data, 
+     main = "Normal Approximation",
+     ylab = "Number of Occurances",
+     xlab = "T value",
+     probability = T)
+
+
+curve(dt(x, df = 10),
+      xlim = c(-4,4),
+      lwd = 2,
+      lty = 2,
+      col = 'red',
+      add = T)
+
+curve(dnorm(x),
+      xlim = c(-4,4),
+      add = T)
+
+
+legend(x="topleft",
+      legend = c("t distribution", "normal distribution"), 
+      lty = c(2,1), col = c('red','black'),lwd=c(2,1),
+      inset = 0.05) 
+```
+
+
+### Question 3ab. 
+
+```{r}
+hist(rbinom(10000, 100, 0.05),
+     probability = T,
+     main = 'Binomial(100, .05)', 
+     xlab = 'X'
+     )
+
+mu <- 100 * 0.05
+sigma <- sqrt((100*0.05)*0.95)
+
+curve(dnorm(x, mu, sigma), add = T)
+```
+
+
+
+### Question 3c.  
+
+```{r}
+hist(rbinom(10000, 100, 0.10),
+     probability = T,
+     main = 'Binomial(100, .10)', 
+     xlab = 'X'
+     )
+
+mu <- 100 * 0.10
+sigma <- sqrt((100*0.10)*0.90)
+
+curve(dnorm(x, mu, sigma), add = T)
+
+
+```
+
+### Question 3d. 
+
+Yes, this seems reasonable based off the above plots. 

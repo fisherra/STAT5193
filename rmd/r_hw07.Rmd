@@ -102,6 +102,7 @@ Ordered[1:5,]
 
 ```{r}
 set.seed(1)
-mean(fra$HSClass[sample(1:nrow(fra), 35, replace = T)])
+mean(fra$HSClass[sample(1:nrow(fra), 35, replace = T)], trim = 0.05)
+mean(Ordered$HSClass[sample(1:nrow(fra), 35, replace = T)], trim = 0.05)
 ```
 
