@@ -1,0 +1,284 @@
+---
+output: pdf_document
+---
+R Midterm Exam
+
+Fisher Ankney 
+
+November 15th, 2018 
+
+Statistics 5193 
+
+*Note: this document was created using R Markdown, as usual.
+
+
+## Question 1
+
+```{r}
+rm(list = ls())
+ls()
+```
+
+\hfill
+
+### Question 2
+
+```{r, echo = F}
+library(readxl)
+FRA <- read_excel("~/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
+FRA <- as.data.frame(FRA)
+row.names(FRA) <- 1:35
+```
+
+```{r, eval = F}
+FRA <- read.table("clipboard", header = T))
+row.names(FRA) <- 1:35
+```
+
+\hfill
+
+### Question 3 
+```{r}
+FRA[c(3,5),]
+```
+
+
+\hfill
+
+### Question 4
+
+```{r}
+FRA_sort <- FRA[order(FRA$Gender, FRA$Introvert),]
+FRA_sort[1:3,]
+```
+
+\hfill
+
+### Question 5
+
+```{r}
+small_index <- FRA$HSClass <= 100
+large_index <- FRA$HSClass > 100
+
+HSClass.cat <- vector('character', length(35))
+
+HSClass.cat[small_index] <- 'Small'
+HSClass.cat[large_index] <- 'Large'
+
+summary(HSClass.cat)
+```
+
+\hfill
+
+### Question 6
+
+```{r}
+HSClass.cat <- factor(HSClass.cat, ordered = T, levels = c('Small', 'Large'))
+summary(HSClass.cat)
+```
+
+\pagebreak
+
+### Question 7 
+
+```{r}
+Texts <- matrix(FRA$TxtSent, FRA$TxtRec, nrow = 35, ncol = 2)
+
+summary(Texts[,1])
+mean(Texts[,1])
+
+summary(Texts[,2])
+mean(Texts[,2])
+```
+
+\pagebreak
+
+### Question 8 
+
+```{r}
+gender <- as.factor(FRA$Gender)
+
+plot(FRA$TxtRec, FRA$TxtSent, 
+     xlab = 'Texts Recieved',
+     ylab = 'Texts Sent', 
+     pch = c(5,1)[gender],
+     col = c('violet', 'slateblue')[gender])
+```
+
+\pagebreak
+
+### Question 9
+
+```{r}
+plot(FRA$TxtRec, FRA$TxtSent, 
+     xlab = 'Texts Recieved',
+     ylab = 'Texts Sent', 
+     pch = c(5,1)[gender],
+     col = c('violet', 'slateblue')[gender])
+
+popular_guy <- FRA[FRA$TxtSent == 100 & FRA$TxtRec == 200,]
+
+
+text(popular_guy$TxtRec,
+     popular_guy$TxtSent,
+     label = "He's Popular?",
+     pos = 2
+      )
+```
+
+
+\pagebreak
+
+
+### Question 10 
+
+```{r}
+plot(FRA$TxtRec, FRA$TxtSent, 
+     xlab = 'Texts Recieved',
+     ylab = 'Texts Sent', 
+     pch = c(5,1)[gender],
+     col = c('violet', 'slateblue')[gender])
+
+popular_guy <- FRA[FRA$TxtSent == 100 & FRA$TxtRec == 200,]
+
+
+text(popular_guy$TxtRec,
+     popular_guy$TxtSent,
+     label = "He's Popular?",
+     pos = 2
+      )
+
+title(main = "Texting vs. Gender", 
+      cex.main = 2,
+      col.main = 'blue')
+```
+
+\pagebreak
+
+
+### Question 11
+
+```{r}
+plot(FRA$TxtRec, FRA$TxtSent, 
+     xlab = 'Texts Recieved',
+     ylab = 'Texts Sent', 
+     pch = c(5,1)[gender],
+     col = c('violet', 'slateblue')[gender])
+
+popular_guy <- FRA[FRA$TxtSent == 100 & FRA$TxtRec == 200,]
+
+
+text(popular_guy$TxtRec,
+     popular_guy$TxtSent,
+     label = "He's Popular?",
+     pos = 2
+      )
+
+title(main = "Texting vs. Gender", 
+      cex.main = 2,
+      col.main = 'blue')
+
+legend('bottomright', 
+       c('male','female'),
+       col=c('slateblue', 'violet'),
+       pch=c(1,5),
+       inset = 0.05)
+```
+
+
+\pagebreak
+
+
+### Quetion 12
+
+```{r}
+males <- FRA[FRA$Gender == 'M',]
+females <- FRA[FRA$Gender == 'F',]
+
+male_reg <- lm(males$TxtRec ~ males$TxtSent)
+female_reg <- lm(females$TxtRec ~ females$TxtSent)
+
+plot(FRA$TxtRec, FRA$TxtSent, 
+     xlab = 'Texts Recieved',
+     ylab = 'Texts Sent', 
+     pch = c(5,1)[gender],
+     col = c('violet', 'slateblue')[gender])
+
+popular_guy <- FRA[FRA$TxtSent == 100 & FRA$TxtRec == 200,]
+
+
+text(popular_guy$TxtRec,
+     popular_guy$TxtSent,
+     label = "He's Popular?",
+     pos = 2
+      )
+
+title(main = "Texting vs. Gender", 
+      cex.main = 2,
+      col.main = 'blue')
+
+legend('bottomright', 
+       c('male','female'),
+       col=c('slateblue', 'violet'),
+       pch=c(1,5),
+       inset = 0.05)
+
+lines(abline(male_reg, col = 'slateblue'))
+lines(abline(female_reg, col = 'violet'))
+```
+
+\pagebreak
+
+
+### Question 13
+
+```{r}
+binom_sample <- rbinom(1000, size = 50, prob = .5)
+
+hist(binom_sample, probability = T)
+
+curve(dnorm(x,
+            mean(binom_sample),
+            sd(binom_sample)),
+      add = T,
+      col='firebrick')
+```
+
+
+\pagebreak
+
+
+### Question 14 
+
+```{r}
+of.age <- function(name, age = 21) {
+
+if (age >= 21) {
+    output <- paste(substitute(name), 'is at least 21')
+    return(output)
+  } else {
+    output <- paste(substitute(name), 'is not at least 21')
+    return(output)
+  }
+  
+}
+
+of.age(Fisher, 25)
+```
+
+\pagebreak
+
+### Question 15
+```{r}
+data <- 0:99
+
+results_vector <- vector('double', length(1000))
+
+for (i in 1:1000) {
+  results_vector[i] <- mean(sample(data, 10, replace = T))
+}
+
+hist(results_vector, 
+     main = 'The distribution of the sample mean')
+```
+

@@ -126,6 +126,7 @@ data.sd <- sd(my.boot.sample)
            main = "Trimmed Mean Sampling Distribution")
 
      curve(dnorm(x, mean = data.mean, sd = data.sd), add = T)
+     
   }
 }
 
@@ -151,5 +152,7 @@ boot.ci(StudentData$HSClass)
 
 set.seed(1)
 boot.ci(StudentData$HSClass, trim.percent=.25)
+axis(side=1, at=c(214.9068,417.5470 ),
+        labels=F, col='red')
 ```
 

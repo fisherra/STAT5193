@@ -1,0 +1,82 @@
+---
+output: pdf_document
+---
+R Homework Number 10
+
+Fisher Ankney 
+
+November 15th, 2018 
+
+Statistics 5193 
+
+*Note: this document was created using R Markdown.
+
+
+### Question 1 
+
+```{r}
+library(readxl)
+StudentData <- read_excel("~/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
+
+gender_snap <- table(StudentData$Snapchat, StudentData$Gender)
+
+barplot(gender_snap, beside = T, col = c("slateblue", "turquoise"))
+
+legend("topright", 
+       inset = 0.05,
+       title = 'Snapchat',
+       c("Yes","No"),	
+       fill=c("turquoise", "slateblue"))	
+```
+
+\pagebreak
+
+
+### Question 2 
+
+```{r}
+median_pin <-aggregate(StudentData$HSClass~StudentData$Pinterest, FUN = median)
+
+barplot(median_pin$`StudentData$HSClass`,
+        col = c("violet", "violetred"),
+        names.arg=c("No Pintrest", "Pintrest"))
+```
+
+
+\pagebreak
+
+### Question 3
+
+```{r}
+plot(density(StudentData$HSClass),
+     lty = 2,
+     lwd = 3,
+     col = "darkslategray")
+
+curve(dnorm(x,
+            mean(StudentData$HSClass),
+            sd(StudentData$HSClass)),
+      add = T,
+      lwd = 3,
+      col='firebrick')
+
+legend('topright',
+       inset = 0.05,
+       legend = c('kernel', 'normal'),
+       lty = c(2,1),
+       lwd = c(3,3),
+       col = c('darkslategray', 'firebrick'))
+```
+
+
+\pagebreak
+
+### Question 4
+
+```{r}
+us_dataframe <- as.data.frame(USPersonalExpenditure)
+percents <- us_dataframe[,5]/sum(us_dataframe[,5])*100
+pie_labels <- paste(row.names(USPersonalExpenditure), " ", percents, "%", sep="")
+
+pie(USPersonalExpenditure[,5], labels = pie_labels)
+```
