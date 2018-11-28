@@ -1,0 +1,102 @@
+---
+output: pdf_document
+---
+
+\begin{center}
+
+R Homework 11
+
+Fisher Ankney 
+
+November 27th, 2018 
+
+Statistics 5193 
+
+\end{center}
+
+\hfill
+
+*Note: this document was created using R Markdown.
+
+\hfill
+
+### Question 1 
+
+```{r}
+set.seed(1)
+
+x <- rlnorm(50, meanlog = 0,sdlog = 2)
+
+boxplot(x,col = "red",
+        main="Boxplot of Lognormal Data",
+        range=3, 
+        yaxt='n',
+        pch=3)
+
+summary <-boxplot.stats(x)  
+
+axis(2,at=summary$stats[3])  
+
+outlier<-summary$stats[4] + 3*(summary$stats[4] - summary$stats[2])
+
+abline(h=outlier, col ="red", lty =2)
+
+legend("topleft", legend="outlier", pch ="+", inset=0.05 )
+
+axis(4,at=x, label=FALSE)
+```
+
+\pagebreak
+
+### Question 2
+
+```{r}
+library(readxl)
+StudentData <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
+```
+
+```{r}
+
+boxplot(StudentData$Fbtime ~ StudentData$Pinterest*StudentData$Gender, 
+        col = c('pink', 'pink', 'blue', 'blue'), 
+        names = c('No Pinterest', 'Pinterest', 'No Pinterest', 'Pinterest'),
+        ylab = 'FB Time',
+        main = 'FB time vs. Pinterest by Gender'
+)
+
+legend('topleft', legend = c('Female', 'Male'), fill = c('pink', 'blue'))
+```
+
+\pagebreak
+
+
+### Question 3 
+
+```{r}
+aggregate(StudentData$Fbtime,
+          by = list(pinterest = StudentData$Pinterest,
+                    gender = StudentData$Gender),
+          FUN = median)
+
+ag_mean <- function(x) {
+  mean(x, trim = 0.05)
+}
+
+aggregate(StudentData$Fbtime,
+          by = list(pinterest = StudentData$Pinterest,
+                    gender = StudentData$Gender),
+          FUN = ag_mean)
+```
+
+\pagebreak
+
+### Question 4
+
+```{r}
+ordered <- USArrests[order(USArrests$Murder),]
+
+dotchart(ordered$Murder, labels = row.names(ordered),
+         main = "Murder Rate by State")
+```
+
+
