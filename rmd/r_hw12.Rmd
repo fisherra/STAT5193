@@ -1,0 +1,131 @@
+---
+output: pdf_document
+---
+
+\begin{center}
+
+R Homework 11
+
+Fisher Ankney 
+
+November 27th, 2018 
+
+Statistics 5193 
+
+\end{center}
+
+\hfill
+
+*Note: this document was created using R Markdown.
+
+\hfill
+
+### Question 1 
+
+
+. Create a 2 x 2 table of gender and pinterest with gender on the rows and Pinterest on
+the Columns. Print it to the console.
+
+
+```{r}
+library(readxl)
+StudentData <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
+```
+
+```{r}
+ex_table <- table(StudentData$Gender, StudentData$Pinterest)
+ex_table
+```
+
+\hfill
+
+### Question 1b
+
+```{r}
+ex_prop_table <- prop.table(margin.table(ex_table, 1:2), 1)
+ex_prop_table
+```
+
+\pagebreak
+
+
+### Question 1c
+
+```{r}
+resid(chisq.test(ex_table[,2]))
+```
+
+More women have pinterest than is expected, and less men have pinterest than is expected, if the expectation is that gender has no effect on pinterest use. 
+
+\hfill
+
+### Question 1d
+
+```{r}
+barplot(t(ex_table),
+        beside = T, 
+        names = c('Female', 'Male'),
+        col = c('slateblue', 'firebrick', 'slateblue', 'firebrick'))
+
+legend('topright',
+       title = 'Has Pinterest?',
+       legend = c('No', 'Yes'),
+       fill = c('slateblue', 'firebrick'))
+
+```
+
+
+\pagebreak
+
+
+### Question 1e
+
+
+```{r}
+barplot(t(ex_table),
+        main = 'Pinterest Depends on Gender (p = 0.03397)',
+        beside = T, 
+        names = c('Female', 'Male'),
+        col = c('slateblue', 'firebrick', 'slateblue', 'firebrick'))
+
+legend('topright',
+       title = 'Has Pinterest?',
+       legend = c('No', 'Yes'),
+       fill = c('slateblue', 'firebrick'))
+```
+
+\pagebreak
+
+
+### Question 2a
+```{r}
+class_surv <- apply(Titanic, c(1,4), sum)
+
+library(vcd)
+mosaic(class_surv, legend = T, gp = shading_max)
+```
+
+\hfill
+
+Yes, survival rate depends on class, with a p-value of $< 2.22*10 ^{-16}$
+
+\pagebreak
+
+### Question 3 
+```{r}
+sex_surv <- apply(Titanic, c(2,4), sum)
+mosaic(sex_surv, legend = T, gp = shading_max)
+```
+
+Yes, survival rate does depend on gender, with a p-value $< 2.22 * 10^{-16}$.
+
+
+\pagebreak
+
+### Question 4
+```{r}
+age_surv <- apply(Titanic, c(3,4), sum)
+mosaic(age_surv, legend = T, gp = shading_max)
+```
+
+Yes, survival rate does depend on age, with a p-value $< 2.22 * 10^{-16}$.
