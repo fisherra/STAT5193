@@ -16,11 +16,25 @@ Statistics 5193
 
 \hfill
 
-*Note: this document was created using R Markdown.
+### Question 1 
+
+
+Generate data using the code “set.seed(1)” and “x<-rlnorm(50, meanlog=0, sdlog=2)”.
+Construct a boxplot of the data that is
+
+- red and has title “Boxplot of lognormal data”
+
+- has a tick mark for the median with the value of the median printed on the left side of
+the y axis.
+
+- Identifies outliers as being greater than Q3+ 3*(Q3 – Q1), plots outliers with a “+”, and
+depicts the outlier cutoff with a dashed red line.
+
+- Has a legend that reads “+ outlier”
+
+- Draws a tick mark for each observation on the right axis. 
 
 \hfill
-
-### Question 1 
 
 ```{r}
 set.seed(1)
@@ -50,6 +64,18 @@ axis(4,at=x, label=FALSE)
 
 ### Question 2
 
+For the student data, make side by side boxplots of FBtime by Pinterest and Gender. There should be four boxes – the first 2 are females and the second 2 are males. Specific details are:
+
+- The female boxes should be pink and the male boxes blue
+
+- Each box should be labeled either “Pinterest” or “No Pinterest”
+
+- You must have the y axis labeled and have a title
+
+- There should be a legend that indicates Female and Male with a pink and blue box, respectively. Hint: see the fill option
+
+\hfill
+
 ```{r}
 library(readxl)
 StudentData <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
@@ -72,6 +98,11 @@ legend('topleft', legend = c('Female', 'Male'), fill = c('pink', 'blue'))
 
 ### Question 3 
 
+
+Get the medians of the 4 groups above and the 5% trimmed means of the four groups above using aggregate function.
+
+\hfill
+
 ```{r}
 aggregate(StudentData$Fbtime,
           by = list(pinterest = StudentData$Pinterest,
@@ -91,6 +122,10 @@ aggregate(StudentData$Fbtime,
 \pagebreak
 
 ### Question 4
+
+Create a dotplot of murder rates by state using the USArrests data. Make sure to order the data by murder rate and provide a title and state names. 
+
+\hfill
 
 ```{r}
 ordered <- USArrests[order(USArrests$Murder),]

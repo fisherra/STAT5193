@@ -1,7 +1,9 @@
 ---
 output: pdf_document
 ---
-R Homework Number 10
+\begin{center}
+
+R Homework 10
 
 Fisher Ankney 
 
@@ -9,10 +11,14 @@ November 15th, 2018
 
 Statistics 5193 
 
-*Note: this document was created using R Markdown.
+\end{center}
 
 
 ### Question 1 
+
+For the class data, construct a vertical bar chart of snapchat vs. gender counts. The bars should be side by side (not stacked), with gender on the x axis and snapchat indicated in the legend. The bars should be different colors and the legend should have a title. 
+
+\hfill
 
 ```{r}
 library(readxl)
@@ -34,6 +40,9 @@ legend("topright",
 
 ### Question 2 
 
+Construct a vertical barchart with median HSClass on the y axis and Pinterest on the X axis. The bars should be different colors, and the bars labeled “No Pinterest” and “Pinterest”.
+
+\hfill
 ```{r}
 median_pin <-aggregate(StudentData$HSClass~StudentData$Pinterest, FUN = median)
 
@@ -46,6 +55,10 @@ barplot(median_pin$`StudentData$HSClass`,
 \pagebreak
 
 ### Question 3
+
+Construct a histogram of HSClass with the estimated density using the density function and the estimated normal density superimposed. The curves should be thick, different colors, and different line types. Add a legend that reads “kernel” and “normal” to indicate which curve is which with the correct line types and colors. 
+
+\hfill
 
 ```{r}
 plot(density(StudentData$HSClass),
@@ -72,6 +85,10 @@ legend('topright',
 \pagebreak
 
 ### Question 4
+
+Construct a pie chart of the USPersonalExpenditure data set for expenditures in 1960. The pie chart should have labels for each category with percentages. 
+
+\hfill
 
 ```{r}
 us_dataframe <- as.data.frame(USPersonalExpenditure)

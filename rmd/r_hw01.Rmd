@@ -1,12 +1,23 @@
 ---
 output: pdf_document
 ---
+\begin{center}
 
-# Homework: 1
-### Name: Fisher Ankney
-### Course: STAT 5193
+R Homework 1
 
-## 1. 
+Fisher Ankney 
+
+Statistics 5193 
+
+\end{center}
+
+### Question 1. 
+
+Create an object whose name is your initials and has value 5.2. Add 5 to the object and print the
+result.
+
+\hfill
+
 ```{r}
 FRA <- 5.2
 FRA + 5
@@ -14,25 +25,40 @@ FRA + 5
 
 <br> 
 
-## 2.
+### Question 2. 
+
+Create an object called “n” that contains the numbers 1,2,3,4,5,6,7 and an object called fib that
+contains the numbers 1, 1, 2, 3, 5, 8, 13, 21. Print the mean of fib.
+
+\hfill
+
 ```{r}
 n <- c(1,2,3,4,5,6,7)
 fib <- c(1, 1, 2, 3, 5, 8, 13, 21)
 mean(fib)
 ```
 
-<br> 
+\hfill
 
-## 3.
+### Question 3. 
+
+Load the MASS package and read the help file. 
+
+\hfill
+
 ```{r}
 library(MASS)
 help(package = "MASS")
 ```
 
+\hfill
 
-<br> 
+### Question 4.
 
-## 4.
+Provide a short (few words) description of the UScrime data in the MASS package in R. 
+
+\hfill
+
 ```{r}
 data()
 help(UScrime)
@@ -40,23 +66,30 @@ help(UScrime)
 
 The Effect of Punishment Regimes on Crime Rates
 
-Description
+\pagebreak
 
-Criminologists are interested in the effect of punishment regimes on crime rates. This has been studied using aggregate data on 47 states of the USA for 1960 given in this data frame. The variables seem to have been re-scaled to convenient numbers.
+### Question 5. 
 
-<br> 
+Consider the DDT data in the MASS package.
 
-## 5. 
+a. Provide a brief description of the data. 
+
+\hfill
+
 ```{r}
 help(DDT)
 ```
 
 DDT in Kale
 
-Description
-
 A numeric vector of 15 measurements by different laboratories of the pesticide DDT in kale, in ppm (parts per million) using the multiple pesticide residue measurement.
 
+\hfill
+
+b. Create an object called DDT.CI that contains a 95% confidence interval for the mean DDT
+level. Use the formula $\bar{X} \pm 2 \frac{s}{\sqrt{n}}$
+
+\hfill
 
 ```{r}
 DDT.CI <- c(
@@ -66,7 +99,12 @@ DDT.CI <- c(
 DDT.CI
 ```
 
-\vspace{0.5 in}
+\hfill
+
+c. Construct a histogram of the data using the hist() function.
+
+\hfill
+
 ```{r}
 hist(DDT)
 ```

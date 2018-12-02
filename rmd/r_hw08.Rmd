@@ -1,28 +1,35 @@
 ---
-output: word_document
+output: pdf_document
 ---
 
-R Homework Number 8
+\begin{center}
+
+R Homework 6
+
+November 8th, 2018
 
 Fisher Ankney 
 
-November 8th, 2018 
-
 Statistics 5193 
 
-*Note: this document was created using R Markdown.
+\end{center}
 
 \hfill
 
 
 ### Question 1a. 
 
+Consider the roster data set from the lecture video. 
+
+
+- Read the help file for the source function, and use the source function to generate the workspace from the lecture video. Print the roster data set to the console and also print a list of
+the objects in your workspace.
+
 ```{r, message=F}
 help(source)
 setwd("~/Documents/data_science/r_stat_5193/scripts")
 source("Day8Script.R")
 ```
-
 
 ```{r}
 help(source)
@@ -35,6 +42,11 @@ ls()
 
 ### Question 1b. 
 
+Print the objects score and roster$score to the console. Find the code in the script that is
+responsible for their difference and print it to the console. 
+
+\hfill
+
 ```{r}
 score
 roster$score
@@ -45,6 +57,10 @@ roster$score
 \hfill
 
 ### Question 1c. 
+
+Create a new variable in the alphabetized data set called “Easy Grade” that assigns a student an A if they are in the top 25% of the class, a B if they score in the middle half of the class, and a C if they are in the bottom 25%. Print the data set to the console. 
+
+\hfill
 
 ```{r}
 y <- quantile(score, c(.75,.25))
@@ -62,6 +78,10 @@ roster
 
 ### Question 1d.
 
+Add a variable grade called MathGrade for each student using the easy grading scale above, but applied to Math Scores. Print the data set to the console
+
+\hfill
+
 ```{r}
 y <- quantile(Math, c(.75,.25))
 
@@ -75,13 +95,22 @@ roster
 
 ### Question 1e.
 
+Sort the data set according to Math score (highest score first) and print it to the console. Hint: Go back and read your solution to 1b
+
+\hfill
+
 ```{r}
 roster_sort <- roster[order(-roster$Math),]
 roster_sort
 ```
 
+\hfill
 
 ### Question 1f.
+
+Change the row names of the data set above to the students full name, remove the variables Firstname and Lastname from the data set. Print the new data set to the console. 
+
+\hfill
 
 ```{r}
 full_name <- paste(roster_sort$Firstname, roster_sort$Lastname)
@@ -91,11 +120,25 @@ roster_sort_drop <- roster_sort[,c(-1,-2)]
 roster_sort_drop
 ```
 
-
-
-
+\hfill
 
 ### Question 2. 
+
+Generating data. T vs. normal distribution.
+
+- Generate a sample of size 1000 from a student’s T distribution with 10 degrees of freedom. Make a histogram of the data. For full credit…
+
+  - Both axis should be labeled
+  
+  - The title should read “Normal Approximation”.
+  
+  - Scale the y axis using the probability = T option. 
+
+- Draw a standard normal density curve and a student’s T curve with 10 degrees of freedom on the histogram. The line types and colors should be different.
+
+- Add a legend that indicates which curve is which.
+
+\hfill
 
 ```{r}
 t_data <- rt(1000,10)
@@ -125,11 +168,26 @@ legend(x="topleft",
       inset = 0.05) 
 ```
 
+\hfill
 
-### Question 3ab. 
+### Question 3a and 3b. 
+
+Let’s investigate the normal approximation for a binomial distribution.
+
+- Generate a sample of 10,000 random variables from a binomial distribution with n = 100 and p=0.05. Make a histogram of the data with appropriately labeled axis and use the probability = T
+option. The title should read “Binomial(100, .05)”
+
+- Draw a normal density curve for approximating the binomial distribution. Recall the formula.  
+-  b above, but this time change p = 0.10.
+d. Do you th
+-k the normal approximation for the binomial distribution can be used if np≥5 and
+n(1−𝑝𝑝)≥5 a  some text books recommend? See the paper
+https://proje teuclid.org/euclid.ss/1009213286 if you are curious
+
+
 
 ```{r}
-hist(rbinom(10000, 100, 0.05),
+hist(\hfillrbinom(10000, 100, 0.05),
      probability = T,
      main = 'Binomial(100, .05)', 
      xlab = 'X'
@@ -143,7 +201,7 @@ curve(dnorm(x, mu, sigma), add = T)
 
 
 
-### Question 3c.  
+### Question\hfill 3c.  
 
 ```{r}
 hist(rbinom(10000, 100, 0.10),
@@ -160,6 +218,8 @@ curve(dnorm(x, mu, sigma), add = T)
 
 ```
 
-### Question 3d. 
+### Question 3\hfill
+
+d. 
 
 Yes, this seems reasonable based off the above plots. 

@@ -2,20 +2,25 @@
 output: pdf_document
 ---
 
-R Homework Number 7
+\begin{center}
+
+R Homework 6
+
+November 6th, 2018
 
 Fisher Ankney 
 
-November 6th, 2018 
-
 Statistics 5193 
 
-*Note: this document was created using R Markdown.
-
-\hfill
+\end{center}
 
 
 ### Question 1. 
+
+Consider the social media data on Brightspace. Load the data into R and save it as a data frame
+called “your initials”. It should have row labels 1, 2, …, 35 and appropriate column names.
+
+\hfill
 
 ```{r}
 library(readxl)
@@ -30,6 +35,12 @@ row.names(fra) <- seq(1:35)
 
 
 ### Question 2. 
+
+Observe the first person in the data set has 1 text sent and 1 text received. This person later told me that they didn’t have a cell phone. Change this value to NA for both texting variables
+and print the first 3 rows of the data set to the console.
+
+\hfill
+
 ```{r}
 fra$TxtSent[1] <- NA
 fra$TxtRec[1] <- NA
@@ -41,6 +52,10 @@ fra[1:3,]
 
 
 ### Question 3. 
+
+Add a new variable to the data set called “d.text” that computes TextSent-TextRec, put the new variable between TxtRec and Fbtime variables, and print the first 3 rows to the console. 
+
+\hfill
 
 ```{r}
 d.text <- fra$TxtSent - fra$TxtRec
@@ -54,6 +69,11 @@ fra[1:3,]
 
 ### Question 4. 
 
+Create a new variable called d.text.cat that is an ordered factor indicating when d.text is less than 0, 0, or greater than 0. The values of the factor should be “Neg”,”0”,”Pos” and NA. Also
+d.text.cat should be added to the data set. Print the data set to the console. 
+
+\hfill
+
 ```{r, echo = T, results='hide'}
 d.text.cat <- factor(sign(d.text), ordered = TRUE,
                     levels = c(-1, 0, 1), 
@@ -66,21 +86,29 @@ addNA(fra$d.text.cat)
 
 
 ```{r}
-fra
+head(fra)
 ```
 
 \hfill
 
 ### Question 5. 
 
+Order the data set by gender (ladies first) and d.text (ascending) within gender. Save the ordered data set as “Ordered” and print it to the console. 
+
+\hfill
+
 ```{r}
 Ordered <- fra[order(fra$Gender,fra$d.text),]
-Ordered
+head(Ordered)
 ```
 
-\pagebreak
+\hfill
 
 ### Question 6. 
+
+Students 1 – 22, 25, and 30 had taken some undergraduate courses at OSU while the rest had not. Create a variable called U.OSU that takes on values Y for students 1 – 22, 25, and 30 and N otherwise. Use the rownames function or the merge function, or both, to merge the variable to the ordered data set in 5. Print the first 5 rows to the console. 
+
+\hfill
 
 ```{r}
 U.OSU <- rep('Y', 35)
@@ -99,6 +127,10 @@ Ordered[1:5,]
 \hfill
 
 ### Question 7.
+
+Take a sample with replacement of size 35 from the data set and compute the 5% trimmed mean for HSClass (trim 5% from each end – see the help file for the mean function). Compare this mean to the 5% trimmed mean of HSClass for the original data. Run the code set.seed(1) before you run the sample function. 
+
+\hfill
 
 ```{r}
 set.seed(1)

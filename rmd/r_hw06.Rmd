@@ -1,22 +1,37 @@
 ---
-output: word_document
+output: pdf_document
 ---
-R Homework Number 6
+
+\begin{center}
+
+R Homework 6
 
 Fisher Ankney 
 
-November 1st, 2018 
-
 Statistics 5193 
 
-*Note: this document was created using R Markdown.
-
+\end{center}
 
 ### Question 1
 
+Consider the social media data on Brightspace. The objective of this question is to determine if introverted students tend to send or receive more texts. To accomplish this objective, you will
+construct a plot of TxtRec – TxtSent on the y axis and Introvert on the x axis. For full credit the plot must satisfy each of the following. At least one separate line of code should be provided for each letter.
+
+- Generate the plot with the y axis labeled “Texts Received – Texts Sent” and the x axis labeled “Introversion Level”
+
+- Create a subtitle that is 80% of the default size that reads “Scale: 1 – 10”
+
+- Create a title reading “Texting vs. Introversion” that is bold, in italics, and red. It should also be twice the default size.
+
+-  Add a horizontal blue dashed line at 0 on the plot. 
+
+- Write “Outlier” to the right of the outlier and plot the outlier with a different plotting character and color. For full credit, you must recreate the plot without the outlier and then add the point to the plot. That is, don’t write over the top of the circle. 
+
+\hfill
+
 ```{r}
 library(readxl)
-StudentData <- read_excel("~/Downloads/StudentData.xlsx")
+StudentData <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
 ```
 
 ```{r}
@@ -59,6 +74,18 @@ text(StudentDataOut$TxtRec
 \pagebreak
 
 ## Question 2
+
+Now we’ll recreate the plot to illustrate the effect of the outlier.
+
+- Recreate the plot above but with the outlier removed. The title should now also read “Outlier Analysis” and the y axis should be from -25 to 20.
+
+- Add a thick red solid least squares regression line that uses all the data.
+
+- Add a thick black dashed least squares regression line that is fit to the data after the outlier is removed.
+
+- Add a legend in the bottom left corner of the plot that has title “Fits”. A red solid line should be drawn and labeled “With Outlier” and a black dashed line should be labeled “Without Outlier”. The legend should be inset a little. 
+
+\hfill
 
 ```{r}
 plot(StudentDataNoOut$TxtRec 
@@ -106,8 +133,19 @@ legend("bottomleft",
        col=c("red", "black"))	
 ```
 
+\pagebreak
 
 ## Question 3
+
+We will create a plot of the same data with the same x and y labels and title as in part 1, but also identify Pinterest users from non-Pinterest users.
+
+- Generate the plot with the y axis labeled “Texts Received – Texts Sent” and the x axis labeled “Introversion Level” but use red triangles to plot Snapchat users and black circles to plot students without Snapchat. Hint: try running as.numeric(Snapchat)
+
+-  Add the title “Texting vs. Introversion vs. Snapchat”.
+
+-  Add a legend in the top left corner of the plot with title “Snapchat” and labels “Y” and “N” with the appropriate plotting characters and colors. The legend should be inset a little. 
+
+\hfill
 
 ```{r}
 plot(StudentData$TxtRec 

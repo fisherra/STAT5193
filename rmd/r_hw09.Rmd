@@ -1,7 +1,10 @@
 ---
 output: pdf_document
 ---
-R Homework Number 9
+
+\begin{center}
+
+R Homework 9
 
 Fisher Ankney 
 
@@ -9,17 +12,28 @@ November 13th, 2018
 
 Statistics 5193 
 
-*Note: this document was created using R Markdown.
-
-\hfill
+\end{center}
 
 ### Question 1a
+
+Functions: 
+
+- Write a function called boot.mean that takes a sample from a vector called my.datawith replacement and returns the trimmed mean from the sampled vector.  For full credit
+
+  - The inputs for the function are my.data and trim.perecent.
+  
+  - my.data should have no default value.
+  
+  - strim.percent has default value of 0.05 and is the percent        trimmed from each tail 
+
+\hfill
 
 ```{r}
 library(readxl)
 StudentData <- read_excel("~/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
 ```
 
+\hfill
 
 ```{r}
 boot.mean <- function(my.data, trim.percent = 0.05) {
@@ -31,6 +45,10 @@ boot.mean <- function(my.data, trim.percent = 0.05) {
 \hfill
 
 ### Question 1b
+
+Get a bootstrapped sample 5% and 10% trimmed mean for the HSClass variable in the Social Media data set. 
+
+\hfill
 
 ```{r}
 # the use of attach is not recommended due to the convoluted nature of the 
@@ -45,6 +63,12 @@ boot.mean(StudentData$HSClass, trim.percent = .10)
 \pagebreak
 
 ### Question 2a
+
+For loop:
+
+  - Write a for loop that runs boot.mean(HSClass) 10,000 times and save the means in a vector called my.boot.sample. Run the code set.seed(1) before your loop and print the mean and standard deviation of the vector to the console. 
+
+\hfill
 
 ```{r}
 my.boot.sample <- vector('double', length = 10000)
@@ -62,6 +86,10 @@ sd(my.boot.sample)
 
 ### Question 2b
 
+Construct a histogram of the 10,000 trimmed sample means with title “Trimmed Mean Sampling Distribution”. Use the probability=T option in the histogram. 
+
+\hfill
+
 ```{r}
 hist(my.boot.sample,
      probability = T,
@@ -72,6 +100,10 @@ hist(my.boot.sample,
 
 
 ### Question 2c
+
+Add a normal curve to the histogram that has mean equal to the mean and standard deviation computed in part a.
+
+\hfill
 
 ```{r}
 hist(my.boot.sample,
@@ -85,6 +117,9 @@ curve(dnorm(x, mean = mean(my.boot.sample), sd = sd(my.boot.sample)),
 \hfill
 
 ### Question 2d
+
+Get the 2.5th percentile and the 97.5th percentile of my.boot.sample using the quantile function. Note: this is a 95% bootstrapped confidence interval of the 5% trimmed mean
+for HS Class. Take STAT 5093 for more on the theory of bootstrapping. 
 
 ```{r}
 quantile(my.boot.sample, c(0.025, 0.975))

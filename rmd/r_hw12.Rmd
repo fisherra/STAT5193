@@ -4,7 +4,7 @@ output: pdf_document
 
 \begin{center}
 
-R Homework 11
+R Homework 12
 
 Fisher Ankney 
 
@@ -16,16 +16,11 @@ Statistics 5193
 
 \hfill
 
-*Note: this document was created using R Markdown.
-
-\hfill
-
 ### Question 1 
 
+Gender vs. Pinterest for th Class Data: 
 
-. Create a 2 x 2 table of gender and pinterest with gender on the rows and Pinterest on
-the Columns. Print it to the console.
-
+Create a 2 x 2 table of gender and pinterest with gender on the rows and Pinterest on the Columns. Print it to the console.
 
 ```{r}
 library(readxl)
@@ -41,6 +36,10 @@ ex_table
 
 ### Question 1b
 
+Construct a table that displays to proportion of Pinterest users among females and the proportion of Pinterest users among males. Print it to the console. 
+
+\hfill
+
 ```{r}
 ex_prop_table <- prop.table(margin.table(ex_table, 1:2), 1)
 ex_prop_table
@@ -51,6 +50,10 @@ ex_prop_table
 
 ### Question 1c
 
+Get the Pearson residual for female Pinterest users and for male Pinterest users and interpret each. 
+
+\hfill
+
 ```{r}
 resid(chisq.test(ex_table[,2]))
 ```
@@ -60,6 +63,10 @@ More women have pinterest than is expected, and less men have pinterest than is 
 \hfill
 
 ### Question 1d
+
+Construct a side by side bar plot. It should have female bars then males bars, and whether or not a person has a Pinterest account should be displayed with different colors and labeled with a titled legend. 
+
+\hfill
 
 ```{r}
 barplot(t(ex_table),
@@ -80,6 +87,9 @@ legend('topright',
 
 ### Question 1e
 
+. Add a title to the plot that states “Pinterest Depends on Gender (p = ___)” with Fisher’s exact test p-value inserted in the blank.
+
+\hfill
 
 ```{r}
 barplot(t(ex_table),
@@ -98,6 +108,19 @@ legend('topright',
 
 
 ### Question 2a
+
+The Titanic data set in R contains counts the number of people who survived and didn’t survive the Titanic sinking across several factors including class (1st class, 2nd class, 3rd class, crew).
+ 
+- Get a 4 x 2 table that displays the proportion of survivors and deaths among 1st class passengers, proportion of 2nd class passenger survivors and deaths and so on. Print it to
+the consol. 
+
+
+- Generate a colorful plot that depicts the Pearson standardized residuals and p-values for testing the null hypothesis that survival rate is independent of class.
+
+- Did survival rate depend on class? Justify your answer with a p-value. 
+
+\hfill
+
 ```{r}
 class_surv <- apply(Titanic, c(1,4), sum)
 
@@ -112,6 +135,11 @@ Yes, survival rate depends on class, with a p-value of $< 2.22*10 ^{-16}$
 \pagebreak
 
 ### Question 3 
+
+Did survival rate depend on gender? Justify your answer with a p-value.
+
+\hfill
+
 ```{r}
 sex_surv <- apply(Titanic, c(2,4), sum)
 mosaic(sex_surv, legend = T, gp = shading_max)
@@ -123,6 +151,11 @@ Yes, survival rate does depend on gender, with a p-value $< 2.22 * 10^{-16}$.
 \pagebreak
 
 ### Question 4
+
+Did survival rate depend on age? Justify your answer with a p-value.
+
+\hfill
+
 ```{r}
 age_surv <- apply(Titanic, c(3,4), sum)
 mosaic(age_surv, legend = T, gp = shading_max)

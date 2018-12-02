@@ -2,28 +2,26 @@
 output: pdf_document
 ---
 
-### Fisher Ankney
-### October 18th, 2018
-### Statistics 5193
+\begin{center}
 
-*Note: this document was created using R Markdown. Dr. Habiger has confirmed that this is an acceptable way to turn in each assignment. 
+R Homework 2
 
-R code input will be of the form:
-```{r, eval=F}
-"this is R code input"
-``` 
+Fisher Ankney 
 
-R code output will be of the form 
-```{r, echo=F}
-"this is R code output"
-``` 
+Statistics 5193 
+
+\end{center}
 
 
 #### Question 1a.
 
+Create 3 vectors: one that contains all the measurements for texts sent, one for texts received, and one for Facebook. 
+
+\hfill
+
 ```{r, message=F}
 library(readxl)
-student_data <- read_excel("~/Downloads/StudentData.xlsx")
+student_data <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
 ```
 
 ```{r}
@@ -36,6 +34,10 @@ facebook_time <- student_data$Fbtime
 
 ### Question 1b. 
 
+Print the first and third measurements to the console for each vector.
+
+\hfill
+
 ```{r}
 text_sent[c(1,3)]
 text_recieve[c(1,3)]
@@ -45,6 +47,11 @@ facebook_time[c(1,3)]
 \hfill
 
 ### Question 1c.
+
+Print the storage mode and class for the text sent vector to the console using a function. 
+
+\hfill
+
 ```{r}
 storage.mode(text_sent)
 class(text_sent)
@@ -53,6 +60,11 @@ class(text_sent)
 \pagebreak
 
 ### Question 2a.
+
+Create a 35 x 3 matrix called SM that contains data for the variables above. Assign appropriate names to the variables and assign ID numbers 1, 2, …, 35 for the units. Print the data for student 4 to the console
+
+\hfill
+
 ```{r}
 id_num <- 1:35
 sm <- matrix(c(text_sent, text_recieve, facebook_time), nrow=35, ncol=3)
@@ -66,6 +78,10 @@ sm[4,]
 \hfill
 
 ### Question 2b. 
+
+Verify that SM is a matrix and find the dimension of SM using appropriate functions.
+
+\hfill
 ```{r}
 is.matrix(sm)
 dim(sm)
@@ -74,6 +90,11 @@ dim(sm)
 \hfill
 
 ### Question 2c.
+
+Get median Facebook time for males and for females.
+
+\hfill
+
 ```{r}
 male <- student_data$Gender == "M"
 female <- student_data$Gender == "F"
@@ -82,10 +103,14 @@ median(student_data[male, ]$Fbtime)
 median(student_data[female, ]$Fbtime)
 ```
 
-\hfill
+\pagebreak
 
 ### Question 2d. 
-median and mean for difference between text sent and text recieved
+
+Get the median and mean for difference between text sent and text recieved. 
+
+\hfill
+
 ```{r}
 text_diff <- text_sent - text_recieve
 
@@ -93,21 +118,26 @@ mean(text_diff)
 median(text_diff)
 ```
 
-
 \hfill
 
 ### Question 3.
+
+Arrays: Create a 2 dimensional array of the SM data above and save it as SM.Array. Make sure to include labels for variables and units. Print the data for the first and last unit to the console.
+
+\hfill
+
 ```{r}
 SM.Array <- as.array(sm)
 SM.Array[c(1,35),]
 ```
 
-
-
 \hfill
 
 ### Question 4.
 
+Read the help file for the mean function and for the object ‘letters’. Use the help file(s) to determine precisely why mean(letters) gives an error message. 
+
+\hfill
 ```{r}
 help(mean)
 help(letters)
