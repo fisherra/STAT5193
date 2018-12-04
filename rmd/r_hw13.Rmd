@@ -1,0 +1,151 @@
+---
+output: pdf_document
+---
+
+\begin{center}
+
+R Homework 13
+
+Fisher Ankney 
+
+December 4th, 2018 
+
+Statistics 5193 
+
+\end{center}
+
+\hfill
+
+### Question 1a
+
+Consider Student Data - Class size and snapchat. Get a 95% students-T based confidence interval for the mean high school class size and interpret it.
+
+\hfill
+
+```{r}
+library(readxl)
+StudentData <- read_excel("/Users/fisher/Documents/data_science/r_stat_5193/data/StudentData.xlsx")
+
+t.test(StudentData$HSClass)
+```
+
+\hfill
+
+We can be 95% confident that the mean high school class size is between 216.73 and 426.07 students. 
+
+\pagebreak
+
+### Question 1b
+
+Get side by side boxplots for high school class among Snapchat users and non- Snapchat
+users.
+
+\hfill
+
+```{r}
+boxplot(StudentData$HSClass~StudentData$Snapchat)
+```
+
+\pagebreak
+
+### Question 1c
+
+Get a p-value for testing the null hypothesis that the mean high school class size is smaller among students who do not have a Snapchat account and interpret it. Assume unequal variances and that data are normally distributed.
+
+\hfill
+
+```{r}
+hs_no_snap <- StudentData[StudentData$Snapchat == 'N',]$HSClass
+hs_yes_snap <- StudentData[StudentData$Snapchat == 'Y',]$HSClass
+
+t.test(hs_no_snap, hs_yes_snap, var.equal = F, alternative = 'less')
+```
+
+\hfill
+
+Assuming a confidence 95%, there is sufficient evidence to suggest that the mean high school size is smaller among students who do not have snapchat. The p-value is 0.049, this barely signifying significance. 
+
+\pagebreak 
+
+### Question 1d
+
+ Get a 90% confidence interval for the difference in mean high school class size among Snapchat vs. non- Snapchat users and interpret it. Assume unequal variances and that data are normally distributed.
+
+\hfill
+
+```{r}
+t.test(StudentData$HSClass ~ StudentData$Snapchat, var.equal = F, conf.level = .9)
+```
+
+\hfill
+
+We're 90% confident that the difference in mean high school class size is between -312.39 and -0.59 students. Meaning that students who do have snapchat, have an mean high school class size that is between 0.59 and 312.39 students larger than their counterparts that do not have snapchat. 
+\pagebreak
+
+### Question 2a
+
+
+Consider the USArrests data - Construct a plot of Assault vs. Murder with Assault on the x axis and draw the least squares regression line on the plot.
+
+\hfill
+
+```{r}
+plot(USArrests$Murder ~ USArrests$Assault)
+lines(abline(lm(USArrests$Murder ~ USArrests$Assault)))
+```
+
+\pagebreak
+
+### Question 2b
+
+Are assault and murder rates independent? Use a p-value to justify your answer?
+
+\hfill
+
+```{r}
+cor.test(USArrests$Murder, USArrests$Assault)
+```
+
+\hfill
+
+Assault and murder rates are not independent, they have a correlation coefficient of 0.8 (high positive correlation), and a pvalue of $< 0.005$. 
+\hfill
+
+### Question 2c
+
+Read the help file for predict.lm. Get a 95% prediction interval for the murder rate of a state that has an assault rate of 151 (Oklahoma’s) using the predict function.
+
+\hfill
+
+```{r}
+?predict.lm
+
+assault_murder <- lm(Murder ~ Assault, data = USArrests)
+
+new_data <- data.frame(Assault = 151)
+
+predict.lm(assault_murder, new_data, interval='prediction')
+```
+
+\pagebreak
+
+
+### Question 2d 
+
+Add lines representing the 95% prediction intervals. That is, get lower limits and upper limits for the 95% prediction intervals as a function of x and add them to the plot.
+
+\hfill
+
+```{r}
+pred_int <- predict.lm(assault_murder, newdata = data.frame(Assault = 50:400), interval = 'prediction')
+new_x <- seq(50, 400, by = 1)
+
+# original plot
+plot(USArrests$Murder ~ USArrests$Assault)
+lines(abline(lm(USArrests$Murder ~ USArrests$Assault)))
+
+# prediction interval
+lines(new_x, pred_int[,2], col = 'orange', lty = 2)
+lines(new_x, pred_int[,3], col = 'orange', lty = 2)
+```
+
