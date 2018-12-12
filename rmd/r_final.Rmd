@@ -1,0 +1,267 @@
+---
+output: pdf_document
+---
+
+\begin{center}
+
+R Final Exam
+
+Fisher Ankney 
+
+December 11th, 2018
+
+Statistics 5193 
+
+\end{center}
+
+\hfill
+
+### Question 1. 
+
+\hfill
+
+```{r}
+rm(list = ls())
+ls()
+```
+
+\hfill
+
+### Question 2. 
+
+\hfill
+
+```{r}
+D <- matrix(c(1,0,0,2), nrow = 2)
+D[,2]
+```
+
+\hfill
+
+### Question 3. 
+
+\hfill
+
+```{r}
+FRA <- data.frame(read.csv(url('http://jdhabiger.okstate.edu/StudentData.txt'), sep = '\t'))
+```
+
+\hfill
+
+### Question 4. 
+
+\hfill
+
+Matrices data storage mode requires the data to be homogeneous, coercing them to lists, while data frame data storage allows for heterogeneous data storage, allowing the variables to remain as factors, integers, numerics, and so on. 
+
+\pagebreak
+
+### Question 5. 
+
+```{r}
+ordered <- FRA[order(FRA$Gender,FRA$Introvert),]
+head(ordered, n = 3)
+```
+
+\hfill
+
+### Question 6. 
+
+\hfill
+
+```{r}
+pin_gen <- table(FRA$Pinterest, FRA$Gender)
+```
+
+\hfill
+
+### Question 7. 
+
+\hfill
+
+```{r}
+pin_gen_prop <- prop.table(margin.table(pin_gen, 1:2), 1)
+```
+
+\pagebreak
+
+### Question 8. 
+
+\hfill
+
+```{r}
+barplot(pin_gen_prop,
+        beside = T, 
+        names = c('Female', 'Male'),
+        col = c('slateblue', 'firebrick', 'slateblue', 'firebrick'))
+
+legend('topright',
+        title = 'Has Pinterest?',
+        legend = c('No', 'Yes'),
+        fill = c('slateblue', 'firebrick'))
+
+```
+
+\pagebreak
+
+### Question 9. 
+
+\hfill
+
+```{r}
+fisher.test(pin_gen)
+```
+
+\hfill
+
+```{r}
+barplot(pin_gen_prop,
+        main = 'Gender vs. Pinterest (p = 0.033970)',
+        beside = T, 
+        names = c('Female', 'Male'),
+        col = c('slateblue', 'firebrick', 'slateblue', 'firebrick'))
+
+legend('topright',
+        title = 'Has Pinterest?',
+        legend = c('No', 'Yes'),
+        fill = c('slateblue', 'firebrick'))
+```
+
+\hfill
+
+Fisher's exact test yielded that use of Pinterest is not independent of gender, with 0.033970 confidence. 
+
+\pagebreak
+
+### Question 10. 
+
+\hfill
+
+```{r}
+resid(chisq.test(pin_gen[,1]))
+
+```
+
+\hfill
+
+Slightly more women use pinterest than is expected if gender has no inpact on pinterest use. 
+
+\hfill
+
+### Question 11. 
+
+\hfill
+
+```{r}
+ci <- function(mean, std_err) {
+  low <- mean - 1.96*std_err
+  high <- mean + 1.96*std_err
+  cat('The 95% CI is', low, 'and', high)
+}
+
+ci(5,2)
+```
+
+\pagebreak
+
+### Question 12. 
+
+\hfill
+
+```{r}
+boxplot(FRA$TxtRec ~ FRA$Gender, 
+        col = c('slateblue', 'firebrick'), 
+        names = c('Female', 'Male'), 
+        main = 'Texts Recieved by Gender')
+```
+
+\pagebreak
+
+### Question 13. 
+
+\hfill
+
+```{r}
+plot(FRA$TxtRec ~ FRA$TxtSent)
+```
+
+\pagebreak
+
+### Question 14. 
+
+\hfill
+
+```{r}
+plot(FRA$TxtRec ~ FRA$TxtSent)
+
+
+popular_guy <- FRA[FRA$TxtSent == 100 & FRA$TxtRec == 200,]
+text(popular_guy$TxtRec ~ popular_guy$TxtSent,
+     label = "He's Popular?",
+     pos = 2
+)
+```
+
+\pagebreak
+
+### Question 15. 
+
+\hfill
+
+```{r}
+plot(FRA$TxtRec ~ FRA$TxtSent)
+
+popular_guy <- FRA[FRA$TxtSent == 100 & FRA$TxtRec == 200,]
+text(popular_guy$TxtRec ~ popular_guy$TxtSent,
+     label = "He's Popular?",
+     pos = 2
+)
+
+lines(abline(lm(FRA$TxtRec ~ FRA$TxtSent)))
+```
+
+\pagebreak
+
+### Question 16. 
+
+\hfill
+
+```{r}
+text_model <- lm(TxtRec ~ TxtSent, data = FRA)
+
+confint(text_model, 'TxtSent', level = 0.95)
+```
+
+\hfill
+
+### Question 17. 
+
+\hfill
+
+```{r}
+hist(resid(text_model),
+     probability = T,
+     main = 'Are residuals normal?',
+     xlab = 'Residuals')
+
+lines(density(resid(text_model)), col = 'firebrick')
+```
+
+\pagebreak
+
+### Question 18. 
+
+\hfill
+
+```{r}
+t.test(FRA$TxtSent, FRA$TxtRec,
+       paired = T)
+
+sum(FRA$TxtSent)
+sum(FRA$TxtRec)
+```
+
+ We do not have enough evidence assert that there is a real difference between texts sent and texts received among the population. The p-value is 0.23 and thus, insigificant. 
+
+\pagebreak
+
